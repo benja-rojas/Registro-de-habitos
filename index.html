@@ -8,24 +8,24 @@
 </head>
 <body>
     <header>
-        <h1>Registro de hábitos</h1>
+        <h1>Registro de <span>hábitos</span></h1>
         <div class="fecha-actual">
-            <p>Fecha: <span>23/08/2025</span></p>
+            <p>Fecha actual: <br><span>23/08/2025</span></p>
         </div>
     </header>
 
     <content>
         <form>
-            <div>
+            <div class="mes">
                 <!-- SE DEBE PODER CAMBIAR ENTRE MESES -->
                 <!-- POR DEFAULT DEBERÍA DE MOSTRAR EL MES ACTUAL -->
-                <p>Mes: <span>Enero</span></p>
+                <h2>Enero</h2>
             </div>
             <div class="habito">
-                <span class="nombre-habito">
-                    Hábito
-                </span>
-                
+                <div class="nombre-habito">
+                    Hacer algo importante
+                </div>
+
                 <div class="dias">
                     <!-- DEBERÍA DE MOSTRAR TODOS LOS DÍAS DEL MES POR MEDIO DE BOTONES -->
                      <!-- BOTONES DE DEMOSTRACIÓN -->
@@ -65,9 +65,11 @@
         </form>
         <!-- ESTE BOTÓN ES PARA CREAR UN NUEVO HÁBITO -->
         <!-- AL SER PRESIONADO, DESPLEGARÁ UN FORMULARIO POP-UP PARA AGREGAR UN NUEVO HÁBITO -->
-         <button id="agregarHabito">
-            Agregar hábito
-         </button>
+         <div class="boton-agregar">
+            <button id="agregarHabito">
+                +
+            </button>
+         </div>
     </content>
 </body>
 </html>

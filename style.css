@@ -5,11 +5,11 @@
 body{
     font-family: Arial, sans-serif;
     background-color: #f8f7f3;
-    max-width: 85%;
+    max-width: 80%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    margin: 15px auto;
+    margin: 20px auto;
 }
 
 h1,h2,p{
@@ -18,14 +18,24 @@ h1,h2,p{
 
 header {
     width: 100%;
-    background-color: antiquewhite;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    text-align: start;
 }
 
-.fecha-actual{
+h1 span{
+    background-color: #96ace9;
+    color: #f8f7f3;
+    font-style: italic;
+    padding: 0 5px;
+}
+
+.fecha-actual {
+    border: 2px solid black;
     display: flex;
+    text-align: center;
+    padding: 0 10px;
 }
 
 content{
@@ -34,21 +44,34 @@ content{
     flex-direction: column;
 }
 
+.mes{
+    background-color: #96ace9;
+    color: #f8f7f3;
+    padding: 0 5px;
+    margin: 15px 0;
+}
+
+.mes h2{
+    font-weight: bold;
+    font-style: italic;
+}
+
 .habito {
     width: 100%;
     display: flex;
     flex-direction: row;
-    border: 1px solid #ccc;
-    padding: 5px;
+    border: 3px solid #96ace9; 
+    margin-bottom: 8px;
 }
 
 .nombre-habito {
-    border: 3px solid #ccc;
-    border-radius: 5px;
-    padding: 5px 25px;
+    width: 20%;
+    border-right: 3px solid #96ace9;
     font-weight: bold;
-    align-content: center;
-    margin-right: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
 }
 
 .dias {
@@ -56,13 +79,32 @@ content{
     display: grid;
     grid-template-columns: repeat(16, 1fr);
     gap: 3px;
+    padding: 5px;
 }
 
 .dias button {
+    height: 35px;
     width: auto;
+    background-color: #dcdee6;
+    border: 0;
+}
+
+.dias button:hover {
+    background-color: #cacfda;
+}
+
+.boton-agregar {
+    display: flex;
+    justify-content: end;
 }
 
 #agregarHabito {
-    width: 150px;
-    margin: 0 auto;
+    padding: 5px 35px;
+    background-color: #dcdee6;
+    border: 0;
+    border-radius: 5px;
+}
+
+#agregarHabito:hover {
+    background-color: #cacfda;
 }

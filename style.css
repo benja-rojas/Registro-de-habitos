@@ -25,7 +25,7 @@ header {
 }
 
 h1 span{
-    background-color: #96ace9;
+    background-color: #858cdc;
     color: #f8f7f3;
     font-style: italic;
     padding: 0 5px;
@@ -45,7 +45,7 @@ content{
 }
 
 .mes{
-    background-color: #96ace9;
+    background-color: #858cdc;
     color: #f8f7f3;
     padding: 0 5px;
     margin: 15px 0;
@@ -60,13 +60,13 @@ content{
     width: 100%;
     display: flex;
     flex-direction: row;
-    border: 3px solid #96ace9; 
+    border: 3px solid #858cdc; 
     margin-bottom: 8px;
 }
 
 .nombre-habito {
     width: 20%;
-    border-right: 3px solid #96ace9;
+    border-right: 3px solid #858cdc;
     font-weight: bold;
     display: flex;
     align-items: center;
@@ -87,11 +87,22 @@ content{
     width: auto;
     background-color: #dcdee6;
     border: 0;
+    user-select: none;
 }
 
 .dias button:hover {
     background-color: #cacfda;
     cursor: pointer;
+}
+
+.dias button.racha {
+    background-color: #858cdc;
+    color: white;
+}
+
+.dias button.perdido {
+    background-color: red;
+    color: white;
 }
 
 .boton-agregar {

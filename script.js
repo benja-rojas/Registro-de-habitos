@@ -5,7 +5,7 @@ let fechaActual = document.getElementById("fechaActual");
 let mesActual = document.getElementById("mesActual");
 let diasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
 
-let habitos = [];
+let habitos = {};
 
 let contenedorHabitos = document.querySelector(".contenedor-habitos")
 
@@ -23,15 +23,29 @@ agregarHabito.addEventListener("click", function () {
 		let divNombreHabito = document.createElement("div");
 		divNombreHabito.classList.add("nombre-habito");
 		divNombreHabito.innerHTML = nombreHabito;
+        
+        let anioHabito = fecha.getFullYear();
+		let mesHabito = meses[fecha.getMonth()];
 
-        //Crea un nuevo objeto hábito y lo agrega al array de hábitos
-        let nuevoHabito = {
-            nombre: nombreHabito,
-            racha: []
-        }
+		//Crea un nuevo objeto hábito y lo agrega al array de meses
+		let nuevoHabito = {
+			nombre: nombreHabito,
+			racha: [],
+		};
 
-        habitos.push(nuevoHabito);
-        console.log(habitos)
+		//Crea el objeto año si es que no existe para guardar los meses
+		if (!habitos[anioHabito]) {
+			habitos[anioHabito] = {};
+		}
+
+		//Crea el array mes si es que no existe para guardar los hábitos
+		if (!habitos[anioHabito][mesHabito]) {
+			habitos[anioHabito][mesHabito] = [];
+		}
+
+		//Agrega el nuevo hábito al array del mes correspondiente
+		habitos[anioHabito][mesHabito].push(nuevoHabito);
+		console.log(habitos);
 
 		let divDias = document.createElement("div");
 		divDias.classList.add("dias");

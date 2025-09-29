@@ -5,22 +5,25 @@ let fechaActual = document.getElementById("fechaActual");
 let mesActual = document.getElementById("mesActual");
 let diasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
 
-let habitos = {
+habitosPorDefecto = {
 	2025: {
 		Septiembre: [
 			{
 				nombre: "Tomar agua",
 				racha: [1, 2, 4, 5, 8, 10, 11, 12, 14, 20, 21, 22, 23, 25, 26, 27]
 			},
-			{
-				nombre: "Hacer ejercicio",
-				racha: [4, 5, 7, 8, 9, 15, 16, 18, 20, 24, 25, 26]
-			},
 		],
 	},
 };
 
-console.log(habitos)
+
+let habitos = JSON.parse(localStorage.getItem("habitos"))
+
+if(habitos != null){
+	localStorage.setItem("habitos", JSON.stringify(habitos))
+}else{
+	localStorage.setItem("habitos", JSON.stringify(habitosPorDefecto))
+}
 
 let contenedorHabitos = document.querySelector(".contenedor-habitos")
 
@@ -30,15 +33,15 @@ fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + f
 mesActual.innerHTML = meses[fecha.getMonth()];  
 
 //Lista los hábitos por defecto
-for (anio in habitos) {
-	console.log(anio);
-	for (mes in habitos[anio]) {
-		console.log(mes);
-		habitos[anio][mes].forEach((h) => {
+for (anioHabito in habitos) {
+	console.log(anioHabito);
+	for (mesHabito in habitos[anioHabito]) {
+		console.log(mesHabito);
+		habitos[anioHabito][mesHabito].forEach((h) => {
 			let nombreHabito = h.nombre;
 			let rachaHabito = h.racha;
 
-			crearHabitoDom(nombreHabito, rachaHabito)
+			crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito)
 		});
 	}
 }
@@ -47,8 +50,8 @@ agregarHabito.addEventListener("click", function () {
 	let nombreHabito = prompt("Ingrese el nombre del hábito que desea agregar");
 	let rachaHabito = [];
 	if (nombreHabito != "" && nombreHabito != null) {
-		let anioHabito = fecha.getFullYear();
-		let mesHabito = meses[fecha.getMonth()];
+		let anioActual = fecha.getFullYear();
+		let mesActual = meses[fecha.getMonth()];
 
 		//Crea un nuevo objeto hábito, para luego agregarlo al array de meses
 		let nuevoHabito = {
@@ -57,18 +60,20 @@ agregarHabito.addEventListener("click", function () {
 		};
 
 		//Crea el objeto año si es que no existe para guardar los meses
-		if (!habitos[anioHabito]) {
-			habitos[anioHabito] = {};
+		if (!habitos[anioActual]) {
+			habitos[anioActual] = {};
 		}
 
 		//Crea el array mes si es que no existe para guardar los hábitos
-		if (!habitos[anioHabito][mesHabito]) {
-			habitos[anioHabito][mesHabito] = [];
+		if (!habitos[anioActual][mesActual]) {
+			habitos[anioActual][mesActual] = [];
 		}
 
 		//Agrega el nuevo hábito al array del mes correspondiente
-		habitos[anioHabito][mesHabito].push(nuevoHabito);
+		habitos[anioActual][mesActual].push(nuevoHabito);
 		console.log(habitos);
+
+		localStorage.setItem("habitos", JSON.stringify(habitos))
 
 		crearHabitoDom(nombreHabito, rachaHabito);
 	} else if (nombreHabito === "") {
@@ -77,7 +82,7 @@ agregarHabito.addEventListener("click", function () {
 });
 
 
-function crearHabitoDom(nombreHabito, rachaHabito) {
+function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	let divHabito = document.createElement("div");
 	divHabito.classList.add("habito");
 
@@ -98,8 +103,8 @@ function crearHabitoDom(nombreHabito, rachaHabito) {
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";
 
-	crearBotonDia(nombreHabito, rachaHabito, divDias);
-	borrarHabito(eliminarHabito, divHabito);
+	crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito);
+	borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
 
 	//Agrega los elementos creados al DOM
 	contenedorHabitos.appendChild(divHabito);
@@ -110,7 +115,7 @@ function crearHabitoDom(nombreHabito, rachaHabito) {
 	eliminarHabito.appendChild(iconEliminar);
 }
 
-function crearBotonDia(nombreHabito, rachaHabito, divDias) {
+function crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito) {
 	for (let dia = 1; dia <= diasMes; dia++) {
 		let button = document.createElement("button");
 		button.type = "button";
@@ -127,12 +132,20 @@ function crearBotonDia(nombreHabito, rachaHabito, divDias) {
 				//Agrega el día marcado a la lista racha
 				if (button.classList.contains("racha") && !rachaHabito.includes(dia)) {
 					rachaHabito.push(dia);
+					localStorage.setItem("habitos", JSON.stringify(habitos))
 					console.log(nombreHabito, rachaHabito);
-				}
-				//"Elimina" el día que fue desmarcado de la lista racha
+				}				
 				else if (!button.classList.contains("racha") && rachaHabito.includes(dia)) {
-					rachaHabito = rachaHabito.filter((d) => d !== dia);
-					console.log(nombreHabito, rachaHabito);
+
+					let buscarHabito = habitos[anioHabito][mesHabito].find(h => h.nombre === nombreHabito);
+
+					//"Elimina" el día que fue desmarcado de la lista racha
+					if(buscarHabito){
+						buscarHabito.racha = buscarHabito.racha.filter((d) => d !== dia)
+					}
+
+					localStorage.setItem("habitos", JSON.stringify(habitos))
+					console.log(rachaHabito)
 				}
 			});
 		}
@@ -145,8 +158,17 @@ function crearBotonDia(nombreHabito, rachaHabito, divDias) {
 	}
 }
 
-function borrarHabito(eliminarHabito, divHabito) {
+function borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	eliminarHabito.addEventListener("click", function() {
+		
 		divHabito.remove()
+		
+		//"Elimina" el hábito del array que coincida con el mes y año
+		if (habitos[anioHabito] && habitos[anioHabito][mesHabito]) {
+			habitos[anioHabito][mesHabito] = habitos[anioHabito][mesHabito].filter(h => h.nombre !== nombreHabito);
+		}
+
+		localStorage.setItem("habitos", JSON.stringify(habitos));
+		console.log(nombreHabito)
 	})
 }

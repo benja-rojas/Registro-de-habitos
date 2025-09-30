@@ -46,6 +46,9 @@ content{
 
 .mes{
     background-color: #858cdc;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     color: #f8f7f3;
     padding: 0 5px;
     margin: 15px 0;
@@ -54,6 +57,36 @@ content{
 .mes h2{
     font-weight: bold;
     font-style: italic;
+}
+
+#filtrarMes {
+    width: 100%;
+    background-color: #858cdc;
+    font-size: x-large;
+    font-weight: bold;
+    font-style: italic;
+    color: white;
+    border: 0;
+    cursor: pointer;
+}
+
+.mesOpcion {
+    background-color: #f8f7f3;
+    font-size: medium;
+    font-style: italic;
+    color: black;
+}
+
+.contenedor-mensaje{
+    width: 100%;
+    align-items: center;
+    text-align: center;
+    padding-bottom: 10px;
+    
+}
+
+.mensaje{
+    color: black;
 }
 
 .habito {

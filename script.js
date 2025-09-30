@@ -2,11 +2,23 @@ const fecha = new Date();
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
 let fechaActual = document.getElementById("fechaActual");
-let mesActual = document.getElementById("mesActual");
-let diasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
+// let mesActual = document.getElementById("mesActual");
+// let diasMes = new Date(fecha.getFullYear(), fecha.getMonth() + 1, 0).getDate();
 
-habitosPorDefecto = {
+let filtrarMes = document.getElementById("filtrarMes");
+
+const habitosPorDefecto = {
 	2025: {
+		Abril: [
+			{
+				nombre: "Tomar agua",
+				racha: [1, 2, 4, 5, 8, 10, 11, 12, 14, 20, 21, 22, 23, 25, 26, 27, 28, 29, 30]
+			},
+			{
+				nombre: "Dormir 8 horas",
+				racha: [1, 2, 4, 5, 8, 10, 12, 14, 20, 21, 23, 26, 27, 29, 30]
+			},
+		],
 		Septiembre: [
 			{
 				nombre: "Tomar agua",
@@ -25,26 +37,74 @@ if(habitos != null){
 	localStorage.setItem("habitos", JSON.stringify(habitosPorDefecto))
 }
 
+let contenedorMensaje = document.querySelector(".contenedor-mensaje")
 let contenedorHabitos = document.querySelector(".contenedor-habitos")
 
 let agregarHabito = document.getElementById("agregarHabito");
 
 fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
-mesActual.innerHTML = meses[fecha.getMonth()];  
+//mesActual.innerHTML = meses[fecha.getMonth()];  
 
-//Lista los hábitos por defecto
-for (anioHabito in habitos) {
-	console.log(anioHabito);
-	for (mesHabito in habitos[anioHabito]) {
-		console.log(mesHabito);
-		habitos[anioHabito][mesHabito].forEach((h) => {
-			let nombreHabito = h.nombre;
-			let rachaHabito = h.racha;
+for (const mes of meses) {
+	let mesOpcion = document.createElement("option");
+	mesOpcion.classList.add("mesOpcion");
+	mesOpcion.value = mes;
+	mesOpcion.innerHTML = mes;
 
-			crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito)
-		});
+	filtrarMes.appendChild(mesOpcion);
+}
+
+//Muestra los hábitos según el mes
+let mesActual = meses[fecha.getMonth()];
+filtrarMes.value = mesActual
+
+contenedorHabitos.innerHTML = "";
+
+listarPorMes(mesActual);
+
+function listarPorMes(listarMes) {
+	for (let anioHabito in habitos) {
+		console.log(anioHabito);
+		for (let mesHabito in habitos[anioHabito]) {
+			if (mesHabito === listarMes) {
+				habitos[anioHabito][mesHabito].forEach((h) => {
+					let nombreHabito = h.nombre;
+					let rachaHabito = h.racha;
+					// anioHabito = Number(anioHabito)
+
+					console.log(anioHabito, mesHabito);
+
+					crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito);
+
+				});
+			}
+		}
 	}
 }
+
+filtrarMes.addEventListener("change", function () {
+	let mesSeleccionado = filtrarMes.value;
+
+	contenedorHabitos.innerHTML = "";
+	contenedorMensaje.innerHTML = ""
+
+	listarPorMes(mesSeleccionado)
+
+	if(mesActual != mesSeleccionado){
+		let mensaje = document.createElement("p")
+		mensaje.classList.add("mensaje")
+		mensaje.innerText = "No puedes crear más hábitos en un mes que no sea el actual"
+
+		agregarHabito.style.visibility = "hidden"
+
+		contenedorMensaje.appendChild(mensaje)		
+	}else{
+		agregarHabito.style.visibility = "visible"
+	}
+
+	console.log(mesSeleccionado);
+});
+
 
 agregarHabito.addEventListener("click", function () {
 	let nombreHabito = prompt("Ingrese el nombre del hábito que desea agregar");
@@ -76,6 +136,7 @@ agregarHabito.addEventListener("click", function () {
 		localStorage.setItem("habitos", JSON.stringify(habitos))
 
 		crearHabitoDom(nombreHabito, rachaHabito);
+		location.reload();
 	} else if (nombreHabito === "") {
 		alert("El nombre del hábito no puede estar vacío");
 	}
@@ -115,7 +176,15 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	eliminarHabito.appendChild(iconEliminar);
 }
 
+function obtenerDiasMes(anio, mesNombre){
+	let mesIndex = meses.indexOf(mesNombre)
+	return new Date(Number(anio), mesIndex + 1, 0).getDate();
+}
+
 function crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito) {
+	let diasMes = obtenerDiasMes(anioHabito, mesHabito)
+	console.log(anioHabito, mesHabito)
+
 	for (let dia = 1; dia <= diasMes; dia++) {
 		let button = document.createElement("button");
 		button.type = "button";

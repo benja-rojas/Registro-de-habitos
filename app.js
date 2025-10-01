@@ -142,7 +142,9 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 
 	let divNombreHabito = document.createElement("div");
 	divNombreHabito.classList.add("nombre-habito");
-	divNombreHabito.innerHTML = nombreHabito;
+	let textoNombreHabito = document.createElement("p");
+	textoNombreHabito.classList.add("texto-habito")
+	textoNombreHabito.innerText = nombreHabito
 
 	let divDias = document.createElement("div");
 	divDias.classList.add("dias");
@@ -164,6 +166,7 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	//Agrega los elementos creados al DOM
 	contenedorHabitos.appendChild(divHabito);
 	divHabito.appendChild(divNombreHabito);
+	divNombreHabito.appendChild(textoNombreHabito)
 	divHabito.appendChild(divDias);
 	divHabito.appendChild(opcion);
 	opcion.appendChild(eliminarHabito);

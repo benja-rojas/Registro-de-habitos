@@ -90,7 +90,6 @@ content{
 }
 
 .habito {
-    height: 90px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -99,7 +98,8 @@ content{
 }
 
 .nombre-habito {
-    width: 20%;
+    height: auto;
+    width: 180px;
     border-right: 3px solid #858cdc;
     font-weight: bold;
     display: flex;
@@ -108,10 +108,16 @@ content{
     padding: 0 5px;
 }
 
+.texto-habito {
+    width: 100px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
 .dias {
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(16, 1fr);
+    grid-template-columns: repeat(14, 1fr);
     gap: 3px;
     padding: 5px;
 }
@@ -140,24 +146,20 @@ content{
 }
 
 .opcion {
-    height: 100%;
+    height: auto;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: center;
 }
 
-.opcion button {
+#eliminarHabito {
     height: 100%;
     background-color: #dcdee6;
-    display: flex;
     align-items: center;
     padding: 0 10px;
     border: none;
     cursor: pointer;
-}
-
-#editarHabito:hover {
-    background-color: #9aacc6;
+    border-left: 3px solid #858cdc;
 }
 
 #eliminarHabito:hover {
@@ -183,4 +185,31 @@ content{
 #agregarHabito:hover {
     background-color: #959bdc;
     cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .habito {
+        flex-direction: column;
+        margin-bottom: 15px;
+    }
+
+    .nombre-habito {
+        width: 100%;
+        padding: 5px;
+        border-right: 0;
+        border-bottom: 3px solid #858cdc;
+    }
+
+    .texto-habito {
+        width: 100%;
+    }
+
+    .dias {
+        grid-template-columns: repeat(6, 1fr);
+    }
+
+    #eliminarHabito {
+        border-top: 3px solid #858cdc;
+        border-left: 0;
+    }
 }

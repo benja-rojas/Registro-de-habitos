@@ -93,25 +93,36 @@ content{
     width: 100%;
     display: flex;
     flex-direction: row;
-    border: 3px solid #858cdc; 
+    border: 3px solid #858cdc;
     margin-bottom: 8px;
 }
 
-.nombre-habito {
+.habito-nombre {
     height: auto;
     width: 180px;
     border-right: 3px solid #858cdc;
-    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 0 5px;
 }
 
-.texto-habito {
-    width: 100px;
+.habito-nombre-texto {
+    width: 160px;
+    font-weight: bold;
     word-wrap: break-word;
     overflow-wrap: break-word;
+}
+
+.habito-nombre-input {
+    all: unset;
+    width: 150px;
+    background-color: #dcdee6;
+    font-style: italic;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+    
 }
 
 .dias {
@@ -193,14 +204,18 @@ content{
         margin-bottom: 15px;
     }
 
-    .nombre-habito {
+    .habito-nombre {
         width: 100%;
         padding: 5px;
         border-right: 0;
         border-bottom: 3px solid #858cdc;
     }
 
-    .texto-habito {
+    .habito-nombre-texto {
+        width: 100%;
+    }
+
+    .habito-nombre-input {
         width: 100%;
     }
 

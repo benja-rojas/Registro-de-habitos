@@ -87,8 +87,7 @@ filtrarMes.addEventListener("change", function () {
 	if (mesActual != mesSeleccionado) {
 		let mensaje = document.createElement("p");
 		mensaje.classList.add("mensaje");
-		mensaje.innerText =
-			"No puedes crear más hábitos en un mes que no sea el actual";
+		mensaje.innerText = "No puedes crear ni modificar hábitos en un mes que no sea el actual";
 
 		agregarHabito.style.visibility = "hidden";
 
@@ -141,9 +140,9 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	divHabito.classList.add("habito");
 
 	let divNombreHabito = document.createElement("div");
-	divNombreHabito.classList.add("nombre-habito");
+	divNombreHabito.classList.add("habito-nombre");
 	let textoNombreHabito = document.createElement("p");
-	textoNombreHabito.classList.add("texto-habito")
+	textoNombreHabito.classList.add("habito-nombre-texto")
 	textoNombreHabito.innerText = nombreHabito
 
 	let divDias = document.createElement("div");
@@ -160,8 +159,8 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	iconEliminar.src = "icons/trash.svg";
 
 	crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito);
-	borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito
-	);
+	borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
+	editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
 
 	//Agrega los elementos creados al DOM
 	contenedorHabitos.appendChild(divHabito);
@@ -192,7 +191,7 @@ function crearBotonDia( nombreHabito, rachaHabito, divDias, anioHabito, mesHabit
 		}
 
 		//Habilita los botones hasta el dia actual
-		if (dia <= fecha.getDate()) {
+		if (dia <= fecha.getDate() && mesHabito === mesActual) {
 			button.addEventListener("click", function () {
 				button.classList.toggle("racha");
 				//Agrega el día marcado a la lista racha
@@ -218,12 +217,60 @@ function crearBotonDia( nombreHabito, rachaHabito, divDias, anioHabito, mesHabit
 				}
 			});
 		}
-		//Desactiva los botones de los días que son mayores al día actual
+		//Desactiva los botones de los días que son mayores al día actual y de los meses anteriores al actual
 		else {
 			button.disabled = true;
 		}
 
 		divDias.appendChild(button);
+	}
+}
+
+function editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito) {
+	if (mesHabito === mesActual) {
+		textoNombreHabito.addEventListener("click", function () {
+			textoNombreHabito.remove();
+
+			let cambiarNombreHabito = document.createElement("input");
+			cambiarNombreHabito.classList.add("habito-nombre-input");
+			cambiarNombreHabito.type = "text";
+			cambiarNombreHabito.value = nombreHabito;
+			console.log(cambiarNombreHabito.value);
+
+			function actualizarNombreHabito() {
+				if (cambiarNombreHabito.value != "") {
+					textoNombreHabito.innerText = cambiarNombreHabito.value;
+
+					let buscarHabito = habitos[anioHabito][mesHabito].find(
+						(h) => h.nombre === nombreHabito
+					);
+
+					buscarHabito.nombre = cambiarNombreHabito.value;
+
+					localStorage.setItem("habitos", JSON.stringify(habitos));
+
+					console.log(habitos);
+				} else {
+					textoNombreHabito.innerText = nombreHabito;
+				}
+				cambiarNombreHabito.remove();
+				location.reload();
+
+				divNombreHabito.appendChild(textoNombreHabito);
+				console.log(cambiarNombreHabito.value);
+			}
+
+			cambiarNombreHabito.addEventListener("blur", actualizarNombreHabito);
+			cambiarNombreHabito.addEventListener("keydown", function (e) {
+				if (e.key === "Enter") {
+					actualizarNombreHabito();
+				}
+			});
+
+			divNombreHabito.appendChild(cambiarNombreHabito);
+			cambiarNombreHabito.select();
+			cambiarNombreHabito.focus();
+		});
 	}
 }
 

@@ -168,8 +168,10 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	divNombreHabito.appendChild(textoNombreHabito)
 	divHabito.appendChild(divDias);
 	divHabito.appendChild(opcion);
-	opcion.appendChild(eliminarHabito);
-	eliminarHabito.appendChild(iconEliminar);
+	if(mesHabito === mesActual){
+		opcion.appendChild(eliminarHabito);
+		eliminarHabito.appendChild(iconEliminar);
+	}
 }
 
 function obtenerDiasMes(anio, mesNombre) {

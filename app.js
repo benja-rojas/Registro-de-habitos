@@ -147,12 +147,12 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	let divDias = document.createElement("div");
 	divDias.classList.add("dias");
 
-	let opcion = document.createElement("div");
-	opcion.classList.add("opciones");
+	let opciones = document.createElement("div");
+	opciones.classList.add("opciones");
 
 	let botonEliminar = document.createElement("button");
 	botonEliminar.type = "button";
-	botonEliminar.classList = "boton-Eliminar";
+	botonEliminar.classList = "boton-eliminar";
 
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";
@@ -173,11 +173,11 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	divHabito.appendChild(divNombreHabito);
 	divNombreHabito.appendChild(textoNombreHabito)
 	divHabito.appendChild(divDias);
-	divHabito.appendChild(opcion);
 	if(mesHabito === mesActual){
-		opcion.appendChild(botonEliminar);
+		divHabito.appendChild(opciones);
+		opciones.appendChild(botonEliminar);
 		botonEliminar.appendChild(iconEliminar);
-		opcion.appendChild(botonEditar);
+		opciones.appendChild(botonEditar);
 		botonEditar.appendChild(iconEditar);
 	}
 }

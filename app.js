@@ -127,8 +127,7 @@ agregarHabito.addEventListener("click", function () {
 
 		localStorage.setItem("habitos", JSON.stringify(habitos));
 
-		crearHabitoDom(nombreHabito, rachaHabito);
-		location.reload();
+		crearHabitoDom(nuevoHabito, nombreHabito, rachaHabito, anioActual, mesActual);
 
 	} else if (nombreHabito === "") {
 		alert("El nombre del hábito no puede estar vacío");

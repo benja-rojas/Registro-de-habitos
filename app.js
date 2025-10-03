@@ -151,23 +151,23 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	let opcion = document.createElement("div");
 	opcion.classList.add("opciones");
 
-	let eliminarHabito = document.createElement("button");
-	eliminarHabito.type = "button";
-	eliminarHabito.classList = "eliminarHabito";
+	let botonEliminar = document.createElement("button");
+	botonEliminar.type = "button";
+	botonEliminar.classList = "boton-Eliminar";
 
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";
 
-	let editarHabito = document.createElement("button");
-	editarHabito.type = "button";
-	editarHabito.classList = "editarHabito";
+	let botonEditar = document.createElement("button");
+	botonEditar.type = "button";
+	botonEditar.classList = "boton-editar";
 
 	let iconEditar = document.createElement("img");
 	iconEditar.src = "icons/pencil-line.svg";
 
 	crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito);
-	borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
-	editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
+	borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
+	editarNombreHabito(botonEditar, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
 
 	//Agrega los elementos creados al DOM
 	contenedorHabitos.appendChild(divHabito);
@@ -176,10 +176,10 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	divHabito.appendChild(divDias);
 	divHabito.appendChild(opcion);
 	if(mesHabito === mesActual){
-		opcion.appendChild(eliminarHabito);
-		eliminarHabito.appendChild(iconEliminar);
-		opcion.appendChild(editarHabito);
-		editarHabito.appendChild(iconEditar);
+		opcion.appendChild(botonEliminar);
+		botonEliminar.appendChild(iconEliminar);
+		opcion.appendChild(botonEditar);
+		botonEditar.appendChild(iconEditar);
 	}
 }
 
@@ -237,9 +237,9 @@ function crearBotonDia( nombreHabito, rachaHabito, divDias, anioHabito, mesHabit
 	}
 }
 
-function editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito) {
+function editarNombreHabito(botonEditar, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito) {
 	if (mesHabito === mesActual) {
-		editarHabito.addEventListener("click", function () {
+		botonEditar.addEventListener("click", function () {
 			textoNombreHabito.remove();
 
 			let cambiarNombreHabito = document.createElement("input");
@@ -248,15 +248,15 @@ function editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHa
 			cambiarNombreHabito.value = nombreHabito;
 			console.log(cambiarNombreHabito.value);
 
-			let actualizarHabito = document.createElement("button");
-			actualizarHabito.type = "button"
-			actualizarHabito.classList.add("actualizarHabito")
+			let botonActualizar = document.createElement("button");
+			botonActualizar.type = "button"
+			botonActualizar.classList.add("boton-actualizar")
 
 			let iconActualizar = document.createElement("img")
 			iconActualizar.src = "icons/save.svg"
 			
-			editarHabito.replaceWith(actualizarHabito)
-			actualizarHabito.appendChild(iconActualizar)
+			botonEditar.replaceWith(botonActualizar)
+			botonActualizar.appendChild(iconActualizar)
 
 			function actualizarNombreHabito() {
 				if (cambiarNombreHabito.value != "") {
@@ -273,13 +273,13 @@ function editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHa
 					textoNombreHabito.innerText = nombreHabito;
 				}
 				cambiarNombreHabito.replaceWith(textoNombreHabito)
-				actualizarHabito.replaceWith(editarHabito)
+				botonActualizar.replaceWith(botonEditar)
 
 				textoNombreHabito.innerText = cambiarNombreHabito.value
 				console.log(cambiarNombreHabito.value);
 			}
 
-			actualizarHabito.addEventListener("click", actualizarNombreHabito)
+			botonActualizar.addEventListener("click", actualizarNombreHabito)
 			cambiarNombreHabito.addEventListener("keydown", function (e) {
 				if (e.key === "Enter") {
 					e.preventDefault();
@@ -294,8 +294,8 @@ function editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHa
 	}
 }
 
-function borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
-	eliminarHabito.addEventListener("click", function () {
+function borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
+	botonEliminar.addEventListener("click", function () {
 		divHabito.remove();
 
 		//"Elimina" el hábito del array que coincida con el mes y año

@@ -172,15 +172,15 @@ content{
     cursor: pointer;
 }
 
-.eliminarHabito:hover {
+.boton-eliminar:hover {
     background-color: #ec275b;
 }
 
-.editarHabito:hover {
+.boton-editar:hover {
     background-color: #b0b9ca;
 }
 
-.actualizarHabito:hover {
+.boton-actualizar:hover {
     background-color: #959bdc;
 }
 

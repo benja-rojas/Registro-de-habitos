@@ -63,13 +63,13 @@ function listarPorMes(listarMes) {
 		console.log(anioHabito);
 		for (let mesHabito in habitos[anioHabito]) {
 			if (mesHabito === listarMes) {
-				habitos[anioHabito][mesHabito].forEach((h) => {
-					let nombreHabito = h.nombre;
-					let rachaHabito = h.racha;
+				habitos[anioHabito][mesHabito].forEach((habito) => {
+					let nombreHabito = habito.nombre;
+					let rachaHabito = habito.racha;
 
 					console.log(anioHabito, mesHabito);
 
-					crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito);
+					crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito);
 				});
 			}
 		}
@@ -135,7 +135,7 @@ agregarHabito.addEventListener("click", function () {
 	}
 });
 
-function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
+function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	let divHabito = document.createElement("div");
 	divHabito.classList.add("habito");
 
@@ -149,7 +149,7 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	divDias.classList.add("dias");
 
 	let opcion = document.createElement("div");
-	opcion.classList.add("opcion");
+	opcion.classList.add("opciones");
 
 	let eliminarHabito = document.createElement("button");
 	eliminarHabito.type = "button";
@@ -158,9 +158,16 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";
 
+	let editarHabito = document.createElement("button");
+	editarHabito.type = "button";
+	editarHabito.classList = "editarHabito";
+
+	let iconEditar = document.createElement("img");
+	iconEditar.src = "icons/pencil-line.svg";
+
 	crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito);
 	borrarHabito(eliminarHabito, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
-	editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
+	editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
 
 	//Agrega los elementos creados al DOM
 	contenedorHabitos.appendChild(divHabito);
@@ -171,6 +178,8 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	if(mesHabito === mesActual){
 		opcion.appendChild(eliminarHabito);
 		eliminarHabito.appendChild(iconEliminar);
+		opcion.appendChild(editarHabito);
+		editarHabito.appendChild(iconEditar);
 	}
 }
 
@@ -228,9 +237,9 @@ function crearBotonDia( nombreHabito, rachaHabito, divDias, anioHabito, mesHabit
 	}
 }
 
-function editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito) {
+function editarNombreHabito(editarHabito, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito) {
 	if (mesHabito === mesActual) {
-		textoNombreHabito.addEventListener("click", function () {
+		editarHabito.addEventListener("click", function () {
 			textoNombreHabito.remove();
 
 			let cambiarNombreHabito = document.createElement("input");
@@ -239,15 +248,23 @@ function editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, an
 			cambiarNombreHabito.value = nombreHabito;
 			console.log(cambiarNombreHabito.value);
 
+			let actualizarHabito = document.createElement("button");
+			actualizarHabito.type = "button"
+			actualizarHabito.classList.add("actualizarHabito")
+
+			let iconActualizar = document.createElement("img")
+			iconActualizar.src = "icons/save.svg"
+			
+			editarHabito.replaceWith(actualizarHabito)
+			actualizarHabito.appendChild(iconActualizar)
+
 			function actualizarNombreHabito() {
 				if (cambiarNombreHabito.value != "") {
 					textoNombreHabito.innerText = cambiarNombreHabito.value;
 
-					let buscarHabito = habitos[anioHabito][mesHabito].find(
-						(h) => h.nombre === nombreHabito
-					);
+					habito.nombre = cambiarNombreHabito.value
 
-					buscarHabito.nombre = cambiarNombreHabito.value;
+					nombreHabito = cambiarNombreHabito.value
 
 					localStorage.setItem("habitos", JSON.stringify(habitos));
 
@@ -255,16 +272,17 @@ function editarNombreHabito(divNombreHabito, textoNombreHabito, nombreHabito, an
 				} else {
 					textoNombreHabito.innerText = nombreHabito;
 				}
-				cambiarNombreHabito.remove();
-				location.reload();
+				cambiarNombreHabito.replaceWith(textoNombreHabito)
+				actualizarHabito.replaceWith(editarHabito)
 
-				divNombreHabito.appendChild(textoNombreHabito);
+				textoNombreHabito.innerText = cambiarNombreHabito.value
 				console.log(cambiarNombreHabito.value);
 			}
 
-			cambiarNombreHabito.addEventListener("blur", actualizarNombreHabito);
+			actualizarHabito.addEventListener("click", actualizarNombreHabito)
 			cambiarNombreHabito.addEventListener("keydown", function (e) {
 				if (e.key === "Enter") {
+					e.preventDefault();
 					actualizarNombreHabito();
 				}
 			});

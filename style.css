@@ -156,25 +156,32 @@ content{
     color: white;
 }
 
-.opcion {
-    height: auto;
+.opciones {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
+    border-left: 3px solid #858cdc;
 }
 
-.eliminarHabito {
-    height: 100%;
+.opciones button {
+    height: 50%;
     background-color: #dcdee6;
     align-items: center;
     padding: 0 10px;
     border: none;
     cursor: pointer;
-    border-left: 3px solid #858cdc;
 }
 
 .eliminarHabito:hover {
     background-color: #ec275b;
+}
+
+.editarHabito:hover {
+    background-color: #b0b9ca;
+}
+
+.actualizarHabito:hover {
+    background-color: #959bdc;
 }
 
 .boton-agregar {

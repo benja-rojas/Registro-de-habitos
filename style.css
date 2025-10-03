@@ -163,7 +163,7 @@ content{
     justify-content: center;
 }
 
-#eliminarHabito {
+.eliminarHabito {
     height: 100%;
     background-color: #dcdee6;
     align-items: center;
@@ -173,7 +173,7 @@ content{
     border-left: 3px solid #858cdc;
 }
 
-#eliminarHabito:hover {
+.eliminarHabito:hover {
     background-color: #ec275b;
 }
 
@@ -223,7 +223,8 @@ content{
         grid-template-columns: repeat(6, 1fr);
     }
 
-    #eliminarHabito {
+    .eliminarHabito {
+        padding: 5px;
         border-top: 3px solid #858cdc;
         border-left: 0;
     }

@@ -153,7 +153,7 @@ function crearHabitoDom(nombreHabito, rachaHabito, anioHabito, mesHabito) {
 
 	let eliminarHabito = document.createElement("button");
 	eliminarHabito.type = "button";
-	eliminarHabito.id = "eliminarHabito";
+	eliminarHabito.classList = "eliminarHabito";
 
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";

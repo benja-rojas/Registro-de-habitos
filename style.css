@@ -173,7 +173,7 @@ h1 span{
 }
 
 .boton-eliminar:hover {
-    background-color: #ec275b;
+    background-color: #ec4370;
 }
 
 .boton-editar:hover {
@@ -281,6 +281,43 @@ h1 span{
     color: white;
 }
 
+/* Alerta */
+
+#contenedor-alerta {
+    visibility: hidden;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenido-alerta {
+    position: relative;
+    height: 60px;
+    width: 380px;
+    background-color: #ec4370;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 0 0 10px #ec275b;
+    padding: 0 15px;
+    margin-top: 8px;
+    gap: 5px;
+}
+
+@keyframes mostrar {
+    0% {top: -60px;}
+    100% {top: 5px;}
+}
+
+.mostrar-alerta {
+    animation: mostrar 0.2s;
+}
+
+
 /* Página responsive */
 
 @media (max-width: 800px) {
@@ -326,6 +363,12 @@ h1 span{
     /* Modal agregar hábito */
 
     .contenedor-modal {
+        width: 300px;
+    }
+
+    /* Alerta */
+
+    .contenido-alerta {
         width: 300px;
     }
 }

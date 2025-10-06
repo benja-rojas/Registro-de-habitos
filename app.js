@@ -41,6 +41,8 @@ let abrirModal = document.getElementById("abrirModal");
 let mostrarModal = document.getElementById("overlay");
 let inputModal = document.getElementById("inputModal");
 
+let mostrarAlerta =  document.getElementById("contenedor-alerta")
+
 let botonCerrar = document.getElementById("botonCerrar");
 let botonCancelar = document.getElementById("botonCancelar");
 
@@ -107,6 +109,8 @@ filtrarMes.addEventListener("change", function () {
 });
 
 abrirModal.addEventListener("click", function() {
+	mostrarAlerta.style.visibility = "hidden"
+
 	mostrarModal.style.visibility = "visible"
 	inputModal.focus();
 })
@@ -118,6 +122,21 @@ function cerrarModal() {
 
 botonCerrar.addEventListener("click", cerrarModal)
 botonCancelar.addEventListener("click", cerrarModal)
+
+function abrirAlerta() {
+	let contenidoAlerta = document.querySelector(".contenido-alerta")
+
+	cerrarModal();
+
+	mostrarAlerta.style.visibility = "visible"
+	contenidoAlerta.classList.add("mostrar-alerta")
+
+	setTimeout(() => {
+		mostrarAlerta.style.visibility = "hidden"
+		contenidoAlerta.classList.remove("mostrar-alerta")
+	}, 2000)
+
+}
 
 function agregarNuevoHabito() {
 	let nombreHabito = inputModal.value;
@@ -151,7 +170,7 @@ function agregarNuevoHabito() {
 		crearHabitoDom(nuevoHabito, nombreHabito, rachaHabito, anioActual, mesActual);
 		cerrarModal();
 	} else if (nombreHabito === "") {
-		alert("El nombre del hábito no puede estar vacío");
+		abrirAlerta();
 	}
 }
 

@@ -7,31 +7,54 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>Registro de <span>hábitos</span></h1>
-        <div class="fecha">
-            <p>Fecha actual: <br><span id="fechaActual"> </span></p>
-        </div>
-    </header>
+    <main>
+        <header>
+            <h1>Registro de <span>hábitos</span></h1>
+            <div class="fecha">
+                <p>Fecha actual: <br><span id="fechaActual"> </span></p>
+            </div>
+        </header>
 
-    <div class="contenido">
-        <select id="filtrarMes">
+        <div class="contenido">
+            <select id="filtrarMes">
 
-        </select>
-    
-        <span class="contenedor-mensaje">
-    
-        </span>
-    
-        <div class="contenedor-habitos">
-    
+            </select>
+        
+            <span class="contenedor-mensaje">
+        
+            </span>
+        
+            <div class="contenedor-habitos">
+        
+            </div>
+            <div class="boton-agregar">
+                <button id="abrirModal">
+                    <img src="icons/plus.svg">
+                </button>
+            </div>
         </div>
-        <div class="boton-agregar">
-            <button id="agregarHabito">
-                <img src="icons/plus.svg">
-            </button>
+    </main>
+
+    <!-- Modal agregar hábito -->
+
+    <div id="overlay">
+        <div class="contenedor-modal">  
+            <div class="contenedor-x">
+                <button id="botonCerrar">
+                    <img src="icons/x.svg">
+                </button>
+            </div>
+
+            <p>Ingrese el nombre del hábito que desea agregar</p>
+            <input type="text" id="inputModal">
+
+            <div class="opciones-modal">
+                <button id="agregarHabito">Agregar</button>
+                <button id="botonCancelar">Cancelar</button>
+            </div>
         </div>
     </div>
+
     <script src="app.js"></script>
 </body>
 </html>

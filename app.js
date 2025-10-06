@@ -37,6 +37,13 @@ if (habitos != null) {
 let contenedorMensaje = document.querySelector(".contenedor-mensaje");
 let contenedorHabitos = document.querySelector(".contenedor-habitos");
 
+let abrirModal = document.getElementById("abrirModal");
+let mostrarModal = document.getElementById("overlay");
+let inputModal = document.getElementById("inputModal");
+
+let botonCerrar = document.getElementById("botonCerrar");
+let botonCancelar = document.getElementById("botonCancelar");
+
 let agregarHabito = document.getElementById("agregarHabito");
 
 fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
@@ -89,18 +96,32 @@ filtrarMes.addEventListener("change", function () {
 		mensaje.classList.add("mensaje");
 		mensaje.innerText = "No puedes crear ni modificar hábitos en un mes que no sea el actual";
 
-		agregarHabito.style.visibility = "hidden";
+		abrirModal.style.visibility = "hidden";
 
 		contenedorMensaje.appendChild(mensaje);
 	} else {
-		agregarHabito.style.visibility = "visible";
+		abrirModal.style.visibility = "visible";
 	}
 
 	console.log(mesSeleccionado);
 });
 
-agregarHabito.addEventListener("click", function () {
-	let nombreHabito = prompt("Ingrese el nombre del hábito que desea agregar");
+abrirModal.addEventListener("click", function() {
+	mostrarModal.style.visibility = "visible"
+	inputModal.focus();
+})
+
+function cerrarModal() {
+	mostrarModal.style.visibility = "hidden"
+	inputModal.value = "";
+}
+
+botonCerrar.addEventListener("click", cerrarModal)
+botonCancelar.addEventListener("click", cerrarModal)
+
+function agregarNuevoHabito() {
+	let nombreHabito = inputModal.value;
+
 	let rachaHabito = [];
 	if (nombreHabito != "" && nombreHabito != null) {
 		let anioActual = fecha.getFullYear();
@@ -128,9 +149,17 @@ agregarHabito.addEventListener("click", function () {
 		localStorage.setItem("habitos", JSON.stringify(habitos));
 
 		crearHabitoDom(nuevoHabito, nombreHabito, rachaHabito, anioActual, mesActual);
-
+		cerrarModal();
 	} else if (nombreHabito === "") {
 		alert("El nombre del hábito no puede estar vacío");
+	}
+}
+
+agregarHabito.addEventListener("click", agregarNuevoHabito);
+inputModal.addEventListener("keydown", function (e) {
+	if (e.key === "Enter") {
+		e.preventDefault();
+		agregarNuevoHabito();
 	}
 });
 

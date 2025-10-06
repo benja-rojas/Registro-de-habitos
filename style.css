@@ -5,10 +5,14 @@
 body{
     font-family: Arial, sans-serif;
     background-color: #f8f7f3;
-    max-width: 80%;
-    height: 100%;
     display: flex;
     flex-direction: column;
+    margin: 0;
+}
+
+main {
+    width: 80%;
+    height: 100%;
     margin: 20px auto;
 }
 
@@ -185,7 +189,7 @@ h1 span{
     justify-content: end;
 }
 
-#agregarHabito {
+#abrirModal {
     width: 80px;
     padding: 5px;
     background-color: #dcdee6;
@@ -196,14 +200,92 @@ h1 span{
     user-select: none;
 }
 
-#agregarHabito:hover {
+#abrirModal:hover {
     background-color: #959bdc;
     cursor: pointer;
 }
 
+/* Modal agregar hábito */
+
+#overlay {
+    visibility: hidden;
+    position: fixed;
+    background-color: rgb(0 0 0 / 50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.contenedor-modal {
+    height: 160px;
+    width: 380px;
+    background-color: #dcdee6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 4px;
+    padding: 10px;
+    margin-top: 40px;
+}
+
+.contenedor-x {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+#botonCerrar {
+    all: unset;
+    cursor: pointer;
+}
+
+#inputModal {
+    width: 100%;
+    padding: 5px 0;
+    margin: 5px 0;
+}
+
+.opciones-modal {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+.opciones-modal button {
+    border: 0;
+    border-radius: 2px;
+    padding: 6px 15px;
+    cursor: pointer;
+    user-select: none;
+}
+
+#agregarHabito {
+    background-color: #858cdc;
+    color: white;
+}
+
+#botonCancelar {
+    background-color: #b0b9ca;
+}
+
+#agregarHabito:hover {
+    background-color: #5f68d0;
+    
+}
+
+#botonCancelar:hover {
+    background-color: #727d90;
+    color: white;
+}
+
+/* Página responsive */
+
 @media (max-width: 800px) {
-    body{
-        max-width: 93%;   
+    main{
+        width: 90%;   
     }
 
     .habito {
@@ -239,5 +321,11 @@ h1 span{
     .opciones button {
         width: 50%;
         padding: 5px;
+    }
+
+    /* Modal agregar hábito */
+
+    .contenedor-modal {
+        width: 300px;
     }
 }

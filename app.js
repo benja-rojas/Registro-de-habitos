@@ -134,7 +134,7 @@ function abrirAlerta() {
 	setTimeout(() => {
 		mostrarAlerta.style.visibility = "hidden"
 		contenidoAlerta.classList.remove("mostrar-alerta")
-	}, 2000)
+	}, 3000)
 
 }
 
@@ -318,12 +318,12 @@ function editarNombreHabito(botonEditar, habito, divNombreHabito, textoNombreHab
 					console.log(habitos);
 				} else {
 					textoNombreHabito.innerText = nombreHabito;
+					abrirAlerta()
 				}
 				cambiarNombreHabito.replaceWith(textoNombreHabito)
 				botonActualizar.replaceWith(botonEditar)
 
-				textoNombreHabito.innerText = cambiarNombreHabito.value
-				console.log(cambiarNombreHabito.value);
+				textoNombreHabito.innerText = nombreHabito
 			}
 
 			botonActualizar.addEventListener("click", actualizarNombreHabito)

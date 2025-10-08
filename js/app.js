@@ -1,3 +1,5 @@
+import { modalAgregarHabito, cerrarModal } from "./modals.js";
+
 const fecha = new Date();
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
@@ -37,16 +39,17 @@ if (habitos != null) {
 let contenedorMensaje = document.querySelector(".contenedor-mensaje");
 let contenedorHabitos = document.querySelector(".contenedor-habitos");
 
-let abrirModal = document.getElementById("abrirModal");
-let mostrarModal = document.getElementById("overlay");
-let inputModal = document.getElementById("inputModal");
+let abrirModalAgregarHabito = document.getElementById("abrirModalAgregarHabito");
+export const mostrarModal = document.getElementById("overlay");
 
 let mostrarAlerta =  document.getElementById("contenedor-alerta")
 
 let botonCerrar = document.getElementById("botonCerrar");
 let botonCancelar = document.getElementById("botonCancelar");
 
-let agregarHabito = document.getElementById("agregarHabito");
+export let mensajeModal = document.getElementById("mensajeModal")
+export const opcionesModal = document.querySelector(".opciones-modal")
+
 
 fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
 
@@ -108,17 +111,9 @@ filtrarMes.addEventListener("change", function () {
 	console.log(mesSeleccionado);
 });
 
-abrirModal.addEventListener("click", function() {
-	mostrarAlerta.style.visibility = "hidden"
-
-	mostrarModal.style.visibility = "visible"
-	inputModal.focus();
+abrirModalAgregarHabito.addEventListener("click", function() {
+	modalAgregarHabito()
 })
-
-function cerrarModal() {
-	mostrarModal.style.visibility = "hidden"
-	inputModal.value = "";
-}
 
 botonCerrar.addEventListener("click", cerrarModal)
 botonCancelar.addEventListener("click", cerrarModal)
@@ -138,7 +133,8 @@ function abrirAlerta() {
 
 }
 
-function agregarNuevoHabito() {
+export function agregarNuevoHabito() {
+	console.log(inputModal.value)
 	let nombreHabito = inputModal.value;
 
 	let rachaHabito = [];
@@ -174,13 +170,7 @@ function agregarNuevoHabito() {
 	}
 }
 
-agregarHabito.addEventListener("click", agregarNuevoHabito);
-inputModal.addEventListener("keydown", function (e) {
-	if (e.key === "Enter") {
-		e.preventDefault();
-		agregarNuevoHabito();
-	}
-});
+
 
 function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	let divHabito = document.createElement("div");

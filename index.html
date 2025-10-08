@@ -27,15 +27,15 @@
             <div class="contenedor-habitos">
         
             </div>
-            <div class="boton-agregar">
-                <button id="abrirModal">
+            <div class="boton-abrir-modal">
+                <button id="abrirModalAgregarHabito">
                     <img src="icons/plus.svg">
                 </button>
             </div>
         </div>
     </main>
 
-    <!-- Modal agregar hábito -->
+    <!-- Modal -->
 
     <div id="overlay">
         <div class="contenedor-modal">  
@@ -45,11 +45,11 @@
                 </button>
             </div>
 
-            <p>Ingrese el nombre del hábito que desea agregar</p>
-            <input type="text" id="inputModal">
+            <p id="mensajeModal"></p>
+            <span class="contenido-modal"></span>
 
             <div class="opciones-modal">
-                <button id="agregarHabito">Agregar</button>
+
                 <button id="botonCancelar">Cancelar</button>
             </div>
         </div>
@@ -64,6 +64,7 @@
         </div>
     </div>
 
-    <script src="app.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/modals.js"></script>
 </body>
 </html>

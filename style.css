@@ -184,12 +184,12 @@ h1 span{
     background-color: #959bdc;
 }
 
-.boton-agregar {
+.boton-abrir-modal {
     display: flex;
     justify-content: end;
 }
 
-#abrirModal {
+#abrirModalAgregarHabito {
     width: 80px;
     padding: 5px;
     background-color: #dcdee6;
@@ -200,7 +200,7 @@ h1 span{
     user-select: none;
 }
 
-#abrirModal:hover {
+#abrirModalAgregarHabito:hover {
     background-color: #959bdc;
     cursor: pointer;
 }
@@ -249,7 +249,7 @@ h1 span{
 
 .opciones-modal {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     justify-content: end;
     gap: 10px;
 }

@@ -189,7 +189,7 @@ h1 span{
     justify-content: end;
 }
 
-#abrirModalAgregarHabito {
+#botonAbrirModalAgregar {
     width: 80px;
     padding: 5px;
     background-color: #dcdee6;
@@ -200,12 +200,12 @@ h1 span{
     user-select: none;
 }
 
-#abrirModalAgregarHabito:hover {
+#botonAbrirModalAgregar:hover {
     background-color: #959bdc;
     cursor: pointer;
 }
 
-/* Modal agregar hábito */
+/* Modal */
 
 #overlay {
     visibility: hidden;
@@ -241,6 +241,7 @@ h1 span{
     cursor: pointer;
 }
 
+/* Solo para el modal agregar hábito */
 #inputModal {
     width: 100%;
     padding: 5px 0;
@@ -262,18 +263,20 @@ h1 span{
     user-select: none;
 }
 
+/* Solo para el modal agregar hábito */
 #agregarHabito {
     background-color: #858cdc;
     color: white;
 }
 
-#botonCancelar {
-    background-color: #b0b9ca;
-}
-
 #agregarHabito:hover {
     background-color: #5f68d0;
     
+}
+
+
+#botonCancelar {
+    background-color: #b0b9ca;
 }
 
 #botonCancelar:hover {
@@ -282,7 +285,6 @@ h1 span{
 }
 
 /* Alerta */
-
 #contenedor-alerta {
     visibility: hidden;
     position: fixed;
@@ -360,14 +362,12 @@ h1 span{
         padding: 5px;
     }
 
-    /* Modal agregar hábito */
-
+    /* Modal */
     .contenedor-modal {
         width: 300px;
     }
 
     /* Alerta */
-
     .contenido-alerta {
         width: 300px;
     }

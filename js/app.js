@@ -3,9 +3,26 @@ import { modalAgregarHabito, cerrarModal } from "./modals.js";
 const fecha = new Date();
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
+// DOM
 let fechaActual = document.getElementById("fechaActual");
-
 let filtrarMes = document.getElementById("filtrarMes");
+
+let contenedorMensaje = document.querySelector(".contenedor-mensaje");
+let contenedorHabitos = document.querySelector(".contenedor-habitos");
+
+// Alerta
+let mostrarAlerta =  document.getElementById("contenedor-alerta")
+
+// Modal
+let botonAbrirModalAgregar = document.getElementById("botonAbrirModalAgregar");
+export const mostrarModal = document.getElementById("overlay");
+
+export let mensajeModal = document.getElementById("mensajeModal")
+
+export const opcionesModal = document.querySelector(".opciones-modal")
+let botonCerrar = document.getElementById("botonCerrar");
+let botonCancelar = document.getElementById("botonCancelar");
+
 
 const habitosPorDefecto = {
 	2025: {
@@ -36,23 +53,10 @@ if (habitos != null) {
 	localStorage.setItem("habitos", JSON.stringify(habitosPorDefecto));
 }
 
-let contenedorMensaje = document.querySelector(".contenedor-mensaje");
-let contenedorHabitos = document.querySelector(".contenedor-habitos");
-
-let abrirModalAgregarHabito = document.getElementById("abrirModalAgregarHabito");
-export const mostrarModal = document.getElementById("overlay");
-
-let mostrarAlerta =  document.getElementById("contenedor-alerta")
-
-let botonCerrar = document.getElementById("botonCerrar");
-let botonCancelar = document.getElementById("botonCancelar");
-
-export let mensajeModal = document.getElementById("mensajeModal")
-export const opcionesModal = document.querySelector(".opciones-modal")
-
-
+//Mostra la fecha actual
 fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
 
+//Crea las opciones del select según los meses del año
 for (const mes of meses) {
 	let mesOpcion = document.createElement("option");
 	mesOpcion.classList.add("mesOpcion");
@@ -70,6 +74,8 @@ contenedorHabitos.innerHTML = "";
 
 listarPorMes(mesActual);
 
+
+// Funciones
 function listarPorMes(listarMes) {
 	for (let anioHabito in habitos) {
 		console.log(anioHabito);
@@ -86,51 +92,6 @@ function listarPorMes(listarMes) {
 			}
 		}
 	}
-}
-
-filtrarMes.addEventListener("change", function () {
-	let mesSeleccionado = filtrarMes.value;
-
-	contenedorHabitos.innerHTML = "";
-	contenedorMensaje.innerHTML = "";
-
-	listarPorMes(mesSeleccionado);
-
-	if (mesActual != mesSeleccionado) {
-		let mensaje = document.createElement("p");
-		mensaje.classList.add("mensaje");
-		mensaje.innerText = "No puedes crear ni modificar hábitos en un mes que no sea el actual";
-
-		abrirModal.style.visibility = "hidden";
-
-		contenedorMensaje.appendChild(mensaje);
-	} else {
-		abrirModal.style.visibility = "visible";
-	}
-
-	console.log(mesSeleccionado);
-});
-
-abrirModalAgregarHabito.addEventListener("click", function() {
-	modalAgregarHabito()
-})
-
-botonCerrar.addEventListener("click", cerrarModal)
-botonCancelar.addEventListener("click", cerrarModal)
-
-function abrirAlerta() {
-	let contenidoAlerta = document.querySelector(".contenido-alerta")
-
-	cerrarModal();
-
-	mostrarAlerta.style.visibility = "visible"
-	contenidoAlerta.classList.add("mostrar-alerta")
-
-	setTimeout(() => {
-		mostrarAlerta.style.visibility = "hidden"
-		contenidoAlerta.classList.remove("mostrar-alerta")
-	}, 3000)
-
 }
 
 export function agregarNuevoHabito() {
@@ -169,7 +130,6 @@ export function agregarNuevoHabito() {
 		abrirAlerta();
 	}
 }
-
 
 
 function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
@@ -346,3 +306,51 @@ function borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioH
 		console.log(nombreHabito);
 	});
 }
+
+function abrirAlerta() {
+	let contenidoAlerta = document.querySelector(".contenido-alerta")
+
+	cerrarModal();
+
+	mostrarAlerta.style.visibility = "visible"
+	contenidoAlerta.classList.add("mostrar-alerta")
+
+	setTimeout(() => {
+		mostrarAlerta.style.visibility = "hidden"
+		contenidoAlerta.classList.remove("mostrar-alerta")
+	}, 3000)
+
+}
+
+
+// Eventos
+filtrarMes.addEventListener("change", function () {
+	let mesSeleccionado = filtrarMes.value;
+
+	contenedorHabitos.innerHTML = "";
+	contenedorMensaje.innerHTML = "";
+
+	listarPorMes(mesSeleccionado);
+
+	if (mesActual != mesSeleccionado) {
+		let mensaje = document.createElement("p");
+		mensaje.classList.add("mensaje");
+		mensaje.innerText = "No puedes crear ni modificar hábitos en un mes que no sea el actual";
+
+		abrirModal.style.visibility = "hidden";
+
+		contenedorMensaje.appendChild(mensaje);
+	} else {
+		abrirModal.style.visibility = "visible";
+	}
+
+	console.log(mesSeleccionado);
+});
+
+
+botonAbrirModalAgregar.addEventListener("click", function() {
+	modalAgregarHabito()
+})
+
+botonCerrar.addEventListener("click", cerrarModal)
+botonCancelar.addEventListener("click", cerrarModal)

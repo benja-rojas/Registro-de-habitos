@@ -1,4 +1,4 @@
-import { modalAgregarHabito, cerrarModal } from "./modals.js";
+import { modalAgregarHabito, modalConfirmarBorrarHabito, cerrarModal } from "./modals.js";
 
 const fecha = new Date();
 const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
@@ -53,7 +53,7 @@ if (habitos != null) {
 	localStorage.setItem("habitos", JSON.stringify(habitosPorDefecto));
 }
 
-//Mostra la fecha actual
+//Muestra la fecha actual
 fechaActual.innerHTML = fecha.getDate() + "/" + (fecha.getMonth() + 1) + "/" + fecha.getFullYear();
 
 //Crea las opciones del select según los meses del año
@@ -148,9 +148,9 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	let opciones = document.createElement("div");
 	opciones.classList.add("opciones");
 
-	let botonEliminar = document.createElement("button");
-	botonEliminar.type = "button";
-	botonEliminar.classList = "boton-eliminar";
+	let botonAbrirModalConfirmar = document.createElement("button");
+	botonAbrirModalConfirmar.type = "button";
+	botonAbrirModalConfirmar.classList = "boton-Abrir-Modal-Confirmar";
 
 	let iconEliminar = document.createElement("img");
 	iconEliminar.src = "icons/trash.svg";
@@ -163,7 +163,8 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	iconEditar.src = "icons/pencil-line.svg";
 
 	crearBotonDia(nombreHabito, rachaHabito, divDias, anioHabito, mesHabito);
-	borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
+	abrirModalConfirmacion(botonAbrirModalConfirmar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
+	// borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito);
 	editarNombreHabito(botonEditar, habito, divNombreHabito, textoNombreHabito, nombreHabito, anioHabito, mesHabito)
 
 	//Agrega los elementos creados al DOM
@@ -173,8 +174,8 @@ function crearHabitoDom(habito, nombreHabito, rachaHabito, anioHabito, mesHabito
 	divHabito.appendChild(divDias);
 	if(mesHabito === mesActual){
 		divHabito.appendChild(opciones);
-		opciones.appendChild(botonEliminar);
-		botonEliminar.appendChild(iconEliminar);
+		opciones.appendChild(botonAbrirModalConfirmar);
+		botonAbrirModalConfirmar.appendChild(iconEliminar);
 		opciones.appendChild(botonEditar);
 		botonEditar.appendChild(iconEditar);
 	}
@@ -291,20 +292,25 @@ function editarNombreHabito(botonEditar, habito, divNombreHabito, textoNombreHab
 	}
 }
 
-function borrarHabito(botonEliminar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
-	botonEliminar.addEventListener("click", function () {
-		divHabito.remove();
+function abrirModalConfirmacion(botonAbrirModalConfirmar, divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
+	botonAbrirModalConfirmar.addEventListener("click", function () {
+		modalConfirmarBorrarHabito(divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito)
+	})
+}
 
-		//"Elimina" el hábito del array que coincida con el mes y año
-		if (habitos[anioHabito] && habitos[anioHabito][mesHabito]) {
-			habitos[anioHabito][mesHabito] = habitos[anioHabito][mesHabito].filter(
-				(h) => h.nombre !== nombreHabito
-			);
-		}
+export function borrarHabito(divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
+	divHabito.remove();
+	cerrarModal();
 
-		localStorage.setItem("habitos", JSON.stringify(habitos));
-		console.log(nombreHabito);
-	});
+	//"Elimina" el hábito del array que coincida con el mes y año
+	if (habitos[anioHabito] && habitos[anioHabito][mesHabito]) {
+		habitos[anioHabito][mesHabito] = habitos[anioHabito][mesHabito].filter(
+			(h) => h.nombre !== nombreHabito
+		);
+	}
+
+	localStorage.setItem("habitos", JSON.stringify(habitos));
+	console.log(nombreHabito);
 }
 
 function abrirAlerta() {
@@ -337,11 +343,11 @@ filtrarMes.addEventListener("change", function () {
 		mensaje.classList.add("mensaje");
 		mensaje.innerText = "No puedes crear ni modificar hábitos en un mes que no sea el actual";
 
-		abrirModal.style.visibility = "hidden";
+		botonAbrirModalAgregar.style.visibility = "hidden";
 
 		contenedorMensaje.appendChild(mensaje);
 	} else {
-		abrirModal.style.visibility = "visible";
+		botonAbrirModalAgregar.style.visibility = "visible";
 	}
 
 	console.log(mesSeleccionado);

@@ -1,4 +1,4 @@
-import { mostrarModal, opcionesModal, mensajeModal, agregarNuevoHabito } from "./app.js";
+import { mostrarModal, opcionesModal, mensajeModal, agregarNuevoHabito, borrarHabito } from "./app.js";
 
 let removerBoton;
 
@@ -31,6 +31,24 @@ export function modalAgregarHabito() {
 	});
 
 	removerBoton = botonAgregar;
+}
+
+export function modalConfirmarBorrarHabito(divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
+	mostrarModal.style.visibility = "visible";
+	mensajeModal.innerText = "¿Estas seguro de borrar el hábito?";
+
+	let botonEliminar = document.createElement("button");
+	botonEliminar.type = "button";
+	botonEliminar.id = "botonEliminar";
+	botonEliminar.innerText = "Borrar";
+
+	opcionesModal.appendChild(botonEliminar);
+
+	botonEliminar.addEventListener("click", function() {
+		borrarHabito(divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito)
+	})
+
+	removerBoton = botonEliminar;
 }
 
 export function cerrarModal() {

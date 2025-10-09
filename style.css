@@ -274,6 +274,16 @@ h1 span{
     
 }
 
+/* Solo para el modal confirmar borrar hábito */
+#botonEliminar {
+    background-color: #ec4370;
+    color: white;
+}
+
+#botonEliminar:hover {
+    background-color: #d42251;
+}
+
 
 #botonCancelar {
     background-color: #b0b9ca;

@@ -35,7 +35,7 @@ export function modalAgregarHabito() {
 
 export function modalConfirmarBorrarHabito(divHabito, nombreHabito, rachaHabito, anioHabito, mesHabito) {
 	mostrarModal.style.visibility = "visible";
-	mensajeModal.innerText = "¿Estas seguro de borrar el hábito?";
+	mensajeModal.innerText = `¿Estás seguro de borrar el hábito "${nombreHabito}"?`;
 
 	let botonEliminar = document.createElement("button");
 	botonEliminar.type = "button";

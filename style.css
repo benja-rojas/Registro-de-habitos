@@ -236,6 +236,10 @@ h1 span{
     justify-content: end;
 }
 
+#mensajeModal {
+    text-align: center;
+}
+
 #botonCerrar {
     all: unset;
     cursor: pointer;
@@ -256,9 +260,10 @@ h1 span{
 }
 
 .opciones-modal button {
+    width: 50%;
     border: 0;
     border-radius: 2px;
-    padding: 6px 15px;
+    padding: 8px;
     cursor: pointer;
     user-select: none;
 }
@@ -375,6 +380,11 @@ h1 span{
     /* Modal */
     .contenedor-modal {
         width: 300px;
+        margin-top: 30%;
+    }
+
+    .opciones-modal {
+        width: 100%;
     }
 
     /* Alerta */
